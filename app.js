@@ -6,6 +6,8 @@ const express = require('express');
 const app = express();
 const engine = require('ejs-mate');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 
 //requiring self built modules
@@ -21,6 +23,16 @@ app.set('views',path.join(__dirname,'views'));
 app.engine('ejs',engine);
 app.set('view engine','ejs');
 
+mongoose.connect(process.env.DATABASE,(err)=>{
+    if(err){
+        console.log('Cannot connect to database')
+    }else{
+        console.log('connection to database was successful');
+    }
+});
+
+
+//middleware
 app.use(bodyParser.urlencoded({extended:true}));
 
 //routes
