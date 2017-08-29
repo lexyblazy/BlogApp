@@ -17,17 +17,21 @@ exports.home = (req,res)=>{
     res.redirect('/posts')
 }
 
+//get all posts from the database
 exports.posts = async (req,res)=>{
     const posts = await Post.find({});
     res.render('posts',{title:'All Blog Posts',posts});
 }
 
+//render a create new post form
 exports.newForm = (req,res)=>{
     res.render('new',{title:'Create a new Post'});
 }
 
+//handle file uploads
 exports.upload = multer(multerOptions).single('image');
 
+//resize the uploaded file
 exports.resize = async (req,res,next)=>{
     //if no file keep going
     if(!req.file){
@@ -45,6 +49,7 @@ exports.resize = async (req,res,next)=>{
     next();
 }
 
+//create the new post and save it to the database
 exports.createNew = async (req,res)=>{
     const post = new Post(req.body);
     await post.save();
