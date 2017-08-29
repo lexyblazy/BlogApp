@@ -1,0 +1,19 @@
+{
+  "name": "blogapp",
+  "version": "1.0.0",
+  "description": "a simple blog app written in node/express and semantic ui",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lexyblazy/BlogApp.git"
+  },
+  "author": "lexy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lexyblazy/BlogApp/issues"
+  },
+  "homepage": "https://github.com/lexyblazy/BlogApp#readme"
+}
