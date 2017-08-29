@@ -11,7 +11,8 @@ mongoose.Promise = global.Promise;
 
 
 //requiring self built modules
-const routes = require('./routes/index')
+const routes = require('./routes/index');
+
 
 //environmental variables config
 require('dotenv').config({path:'variables.env'})

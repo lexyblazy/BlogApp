@@ -1,6 +1,6 @@
 <% layout('layout') %>
 <div class='ui container main header segment'>
-   <form class="ui form" method = 'post' action = '/posts'>
+   <form class="ui form" method = 'post' action = '/posts' enctype='multipart/form-data'>
         <div class="field">
             <label>Title</label>
             <input name="title" placeholder="Post Title" type="text">
@@ -10,7 +10,7 @@
             <textarea name ='content' placeholder='Post Content'></textarea>
         </div>
         <div class='field'>
-             <input type="file">
+             <input type="file" name='image' accept = 'image/jpeg, image/png, image/gif'>
         </div>
         <div class='field'>
              <button class="ui button" type="submit">Submit</button>
