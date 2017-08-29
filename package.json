@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lexyblazy/BlogApp#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.7",
     "ejs-mate": "^2.3.0",

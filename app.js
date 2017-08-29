@@ -5,6 +5,7 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const engine = require('ejs-mate');
+const bodyParser = require('body-parser');
 
 
 //requiring self built modules
@@ -20,6 +21,7 @@ app.set('views',path.join(__dirname,'views'));
 app.engine('ejs',engine);
 app.set('view engine','ejs');
 
+app.use(bodyParser.urlencoded({extended:true}));
 
 //routes
 app.use(routes);

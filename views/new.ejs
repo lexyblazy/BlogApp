@@ -1,0 +1,20 @@
+<% layout('layout') %>
+<div class='ui container main header segment'>
+   <form class="ui form" method = 'post' action = '/posts'>
+        <div class="field">
+            <label>Title</label>
+            <input name="Title" placeholder="Post Title" type="text">
+        </div>
+        <div class="field">
+            <label for='content'>Content</label>
+            <textarea name ='content' placeholder='Post Content'></textarea>
+        </div>
+        <div class='field'>
+             <input type="file">
+        </div>
+        <div class='field'>
+             <button class="ui button" type="submit">Submit</button>
+        </div>
+       
+    </form>
+</div>
