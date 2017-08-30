@@ -1,0 +1,8 @@
+<% layout('layout') %>
+
+<div class = 'ui container segment'>
+    <h2 class='header'><%=post.title%></h2>
+    <small><%=post.date.toDateString()%></small><br>
+    <img src="/uploads/<%=post.image%>" alt="Nice Image" width='100%'><br><br><hr>
+    <p><%-post.content%></p>
+</div>

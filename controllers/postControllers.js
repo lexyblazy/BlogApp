@@ -53,6 +53,15 @@ exports.resize = async (req,res,next)=>{
 exports.createNew = async (req,res)=>{
     const post = new Post(req.body);
     await post.save();
-    console.log(post);
     res.redirect('/posts');
+}
+
+//show more info about a specific post
+exports.show = async(req,res)=>{
+    const post = await Post.findOne({slug:req.params.slug});
+    if(!post){
+        throw Error('Cannot find the specified post');
+        return;
+    }
+    res.render('show',{title:post.title,post});
 }

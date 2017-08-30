@@ -9,5 +9,5 @@ router.post('/posts',
             postController.upload,
             catchErrors(postController.resize),
             catchErrors(postController.createNew));
-
+router.get('/posts/:slug',postController.show);
 module.exports = router;
