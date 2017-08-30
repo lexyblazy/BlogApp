@@ -1,0 +1,25 @@
+<% layout('layout') %>
+<div class='ui container main header segment'>
+   <form class="ui form" method = 'post' action = '/posts/<%=post._id%>' enctype='multipart/form-data'>
+        <div class="field">
+            <label>Title</label>
+            <input name="title" placeholder="Post Title" type="text" value = '<%=post.title%>'>
+        </div>
+        <div class="field">
+            <label for='content'>Content</label>
+            <textarea name ='content' placeholder='Post Content'><%=post.content%></textarea>
+        </div>
+        <div class='field'>
+            
+             <input type="file" name='image' accept = 'image/jpeg, image/png, image/gif'>
+             <%if(post.image){%>
+                <br><br>
+                <img src="/uploads/<%=post.image%>" alt="Post Image" width='200px'>
+             <%}%>
+        </div>
+        <div class='field'>
+             <button class="ui button green" type="submit">Submit</button>
+        </div>
+       
+    </form>
+</div>

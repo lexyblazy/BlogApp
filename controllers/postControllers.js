@@ -57,11 +57,28 @@ exports.createNew = async (req,res)=>{
 }
 
 //show more info about a specific post
-exports.show = async(req,res)=>{
+exports.show = async (req,res)=>{
     const post = await Post.findOne({slug:req.params.slug});
     if(!post){
         throw Error('Cannot find the specified post');
-        return;
+        return res.redirect('/');
     }
     res.render('show',{title:post.title,post});
+}
+
+//render a form to edit a post
+exports.editForm = async (req,res)=>{
+    const post = await Post.findById(req.params.id);
+    if(!post){
+        console.log('Post does not exist');
+        return res.redirect('/posts')
+    }
+
+    res.render('edit',{title:`Edit ${post.title}`,post});
+}
+
+//update and save the edited post to the db
+exports.updatePost = async (req,res)=>{
+    const post = await Post.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true}).exec();
+    res.redirect(`/posts/${post.slug}`);
 }

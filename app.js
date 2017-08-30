@@ -6,7 +6,9 @@ const express = require('express');
 const app = express();
 const engine = require('ejs-mate');
 const bodyParser = require('body-parser');
+const flash = require('connect-flash');
 const mongoose = require('mongoose');
+//tell mongoose to use es6 promises
 mongoose.Promise = global.Promise;
 
 
