@@ -5,4 +5,7 @@
     <small><%=post.date.toDateString()%></small><br>
     <img src="/uploads/<%=post.image%>" alt="Nice Image" width='100%'><br><br><hr>
     <p><%-post.content%></p>
+    <a href="/posts" class='ui red inverted button'>Back</a>
+    <a href="/posts/<%=post._id%>/edit" class='ui orange inverted button'>Edit</a>
+    <a href="#" class='ui green inverted button'>Comment</a>
 </div>
