@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const postController = require('../controllers/postControllers');
+const categoryController = require('../controllers/categoryControllers');
 const {catchErrors} = require('../handlers/errorhandlers')
 
 router.get('/',postController.home);
@@ -23,4 +24,6 @@ router.post('/posts/:id',
             catchErrors(postController.resize),
             catchErrors(postController.updatePost)
         )
+
+router.get('/categories',categoryController.addForm);
 module.exports = router;
