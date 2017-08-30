@@ -14,6 +14,7 @@ mongoose.Promise = global.Promise;
 
 //requiring self built modules
 const routes = require('./routes/index');
+const Category = require('./models/category');
 
 
 //environmental variables config
@@ -37,6 +38,16 @@ mongoose.connect(process.env.DATABASE,(err)=>{
 
 //middleware
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+app.use(async (req,res,next)=>{
+    try {
+        const categories = await Category.find({});
+        res.locals.categories = categories;
+    } catch (error) {
+        console.log(error);
+    }
+    next();
+})
 
 //routes
 app.use(routes);

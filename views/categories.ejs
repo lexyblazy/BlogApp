@@ -1,0 +1,15 @@
+<% layout('layout') %>
+<div class = 'ui container text segment'>
+<div class="ui relaxed divided list" id='message'>
+<% categories.forEach(function(category){%>
+<div class = "item">
+    <div class="content">
+        <a class = "header"><%=category.name.toUpperCase()%></a><br>
+        <div class='description'><%=category.description%></div>
+    </div>
+</div><br>
+
+<%})%>
+ </div>   
+</div>
+ 

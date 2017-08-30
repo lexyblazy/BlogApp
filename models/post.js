@@ -15,10 +15,7 @@ const postSchema = new mongoose.Schema({
     },
     image:String,
     slug:String,
-    category:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Category'
-    },
+    category:String,
     date:{
         type:Date,
         default:Date.now
