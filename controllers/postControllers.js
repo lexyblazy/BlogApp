@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const Category = require('../models/category');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
@@ -52,7 +53,11 @@ exports.resize = async (req,res,next)=>{
 //create the new post and save it to the database
 exports.createNew = async (req,res)=>{
     const post = new Post(req.body);
-    await post.save();
+    const savePostPromise = post.save();
+    const categoryPromise = Category.findOne({name:req.body.category});
+    const addPostToCategoryPromise = category.posts.push(post);
+    const saveCategoryPromise = category.save;
+    await Promise.all([savePostPromise,categoryPromise,addPostToCategoryPromise,saveCategoryPromise]);
     res.redirect('/posts');
 }
 
