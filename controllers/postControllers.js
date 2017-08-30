@@ -53,5 +53,6 @@ exports.resize = async (req,res,next)=>{
 exports.createNew = async (req,res)=>{
     const post = new Post(req.body);
     await post.save();
+    console.log(post);
     res.redirect('/posts');
 }
