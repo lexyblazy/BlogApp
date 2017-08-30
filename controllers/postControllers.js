@@ -84,5 +84,8 @@ exports.editForm = async (req,res)=>{
 //update and save the edited post to the db
 exports.updatePost = async (req,res)=>{
     const post = await Post.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true}).exec();
+    const category = await Category.findOne({name:req.body.category});
+    await category.posts.push(post);
+    await category.save();
     res.redirect(`/posts/${post.slug}`);
 }

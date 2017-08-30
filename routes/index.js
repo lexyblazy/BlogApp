@@ -28,5 +28,6 @@ router.post('/posts/:id',
 router.get('/categories',categoryController.categories);
 router.get('/categories/new',categoryController.addForm);
 router.post('/categories',catchErrors(categoryController.create));
+router.get('/categories/:category',catchErrors(categoryController.getCategory));
 
 module.exports = router;

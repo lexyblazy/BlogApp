@@ -14,3 +14,12 @@ exports.create =  async (req,res)=>{
  await category.save();
  res.redirect('/categories');
 }
+
+exports.getCategory = async (req,res)=>{
+    const category = await Category.findOne({name:req.params.category});
+    if(!category){
+        console.log('Category does not exist');
+        return res.redirect('/category')
+    }
+    res.json(category);
+}

@@ -4,8 +4,13 @@
 <% categories.forEach(function(category){%>
 <div class = "item">
     <div class="content">
-        <a class = "header"><%=category.name.toUpperCase()%></a><br>
-        <div class='description'><%=category.description%></div>
+        <a href = '/categories/<%=category.name%>'class = "header"><%=category.name.toUpperCase()%></a><br>
+        <div class='description'><%=category.description%></div><br>
+        <%if(category.posts.length === 1){%>
+            <span><%=category.posts.length%> Post</span>
+        <%}else{%>
+             <span><%=category.posts.length%> Posts</span>
+        <%}%>
     </div>
 </div><br>
 
