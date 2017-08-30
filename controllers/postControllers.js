@@ -53,11 +53,10 @@ exports.resize = async (req,res,next)=>{
 //create the new post and save it to the database
 exports.createNew = async (req,res)=>{
     const post = new Post(req.body);
-    const savePostPromise = post.save();
-    const categoryPromise = Category.findOne({name:req.body.category});
-    const addPostToCategoryPromise = category.posts.push(post);
-    const saveCategoryPromise = category.save;
-    await Promise.all([savePostPromise,categoryPromise,addPostToCategoryPromise,saveCategoryPromise]);
+    await post.save();
+    const category = await Category.findOne({name:req.body.category});
+    await category.posts.push(post);
+    await category.save();
     res.redirect('/posts');
 }
 
