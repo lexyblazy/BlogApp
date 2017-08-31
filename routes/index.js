@@ -52,5 +52,8 @@ router.post('/register',
             catchErrors(userController.register),
             authController.login
         );
+router.get('/login',authController.loginForm);
+router.post('/login',authController.login);
+router.get('/logout',authController.logout);
 
 module.exports = router;
