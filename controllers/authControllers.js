@@ -14,3 +14,11 @@ exports.logout = (req,res)=>{
     req.flash('success','You have been sucessfully logged out');
     res.redirect('/posts');
 }
+
+exports.isLoggedIn = (req,res,next)=>{
+    if(req.isAuthenticated()){
+        return next();
+    }
+    req.flash('error','You have to be logged in to do that');
+    res.redirect('/login')
+}
