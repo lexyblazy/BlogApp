@@ -7,7 +7,8 @@ const postSchema = new mongoose.Schema({
     title:{
         type:String,
         required:'Please supply a post title',
-        trim:true
+        trim:true,
+        unique:true
     },
     content:{
         type:String,
@@ -15,7 +16,10 @@ const postSchema = new mongoose.Schema({
     },
     image:String,
     slug:String,
-    category:String,
+    category:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Category'
+    },
     date:{
         type:Date,
         default:Date.now

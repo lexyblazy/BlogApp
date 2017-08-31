@@ -8,7 +8,7 @@
             <img src='/uploads/<%=post.image%>' width='666' height='354.94'><br><br>
             <div><%-post.content.substr(0,200)%>...</div><br>
             <a href="/posts/<%=post.slug%>" class = 'ui purple inverted button'>Read More</a><br>
-            <small class = 'ui floated right item'>Category: <a href = '/categories/<%=post.category%>'><%=post.category%></a></small>                                                                 
+            <small class = 'ui floated right item'>Category: <a href = '/categories/<%=post.category.name%>'><%=post.category.name%></a></small>                                                                 
             <%if(post.author){%>
                 <small class = 'ui floated right item'>Author: <a href = '/categories/<%=post.category%>'><%=post.author.name%></a></small>                                                                 
             <%}%>

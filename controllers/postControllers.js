@@ -20,7 +20,7 @@ exports.home = (req,res)=>{
 
 //get all posts from the database
 exports.posts = async (req,res)=>{
-    const posts = await Post.find({}).populate('author');
+    const posts = await Post.find({}).populate('author').populate('category');
     res.render('posts',{title:'All Blog Posts',posts});
 }
 
@@ -67,8 +67,9 @@ exports.validatePost = (req,res,next)=>{
 exports.createNew = async (req,res)=>{
     const post = new Post(req.body);
     post.author = req.user;
-    await post.save();
     const category = await Category.findOne({name:req.body.category});
+    post.category = category._id;
+    await post.save();
     await category.posts.push(post);
     await category.save();
     res.redirect('/posts');
@@ -76,7 +77,7 @@ exports.createNew = async (req,res)=>{
 
 //show more info about a specific post
 exports.show = async (req,res)=>{
-    const post = await Post.findOne({slug:req.params.slug});
+    const post = await Post.findOne({slug:req.params.slug}).populate('comments');
     if(!post){
         throw Error('Cannot find the specified post');
         return res.redirect('/');

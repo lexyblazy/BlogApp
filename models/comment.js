@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const commentSchema = new mongoose.Schema({
-    title:{
+    comment:{
         type:String,
-        required:'You must supply a title',
+        required:'Comment field cannot be empty',
         trim:true
     },
     date:{
