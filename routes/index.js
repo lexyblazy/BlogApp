@@ -1,8 +1,12 @@
 const router = require('express').Router();
 const postController = require('../controllers/postControllers');
 const categoryController = require('../controllers/categoryControllers');
+const userController = require('../controllers/userControllers');
 const {catchErrors} = require('../handlers/errorhandlers')
 
+//============
+//POSTS ROUTES
+//============
 router.get('/',postController.home);
 //view all blog posts
 router.get('/posts',postController.posts);
@@ -25,9 +29,21 @@ router.post('/posts/:id',
             catchErrors(postController.updatePost)
         )
 
+//=================
+//CATEGORIES ROUTES
+//=================
+
+//show all categories
 router.get('/categories',categoryController.categories);
+//create a new category form
 router.get('/categories/new',categoryController.addForm);
+//save the category to DB
 router.post('/categories',catchErrors(categoryController.create));
+//get a specific category
 router.get('/categories/:category',catchErrors(categoryController.getCategory));
 
+//===========
+//USER ROUTES
+//===========
+router.get('/register',userController.registerForm);
 module.exports = router;
