@@ -45,6 +45,7 @@ mongoose.connect(process.env.DATABASE,(err)=>{
 //middleware
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+app.use(flash());
 
 //make the categories data available on all routes
 app.use(async (req,res,next)=>{
@@ -71,6 +72,14 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use((req,res,next)=>{
+    res.locals.user = req.user || null;
+    res.locals.errors = req.flash('error');
+    res.locals.success = req.flash('success');
+    next();
+})
+
 //routes
 app.use(routes);
 

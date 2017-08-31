@@ -18,16 +18,17 @@ exports.validateRegister = (req,res,next)=>{
 
     const errors = req.validationErrors();
     if(errors){
-        console.log(errors);
+        req.flash('error',errors.map(err=>err.msg))
         return res.redirect('/register')
     }
     next();
 }
 
-exports.register = async (req,res,)=>{
+exports.register = async (req,res,next)=>{
     const user = new User({name:req.body.name,email:req.body.email});
     //use promisify to handle callback based API
-    const register = promisify(user.register,user);
+    const register = promisify(User.register,User);
     await register(user,req.body.password);
+    next();
 
 }

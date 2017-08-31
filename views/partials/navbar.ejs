@@ -11,10 +11,18 @@
   <a href = '/posts/new' class="item">
    New Post
   </a>
+  <%if(!user){%>
   <a href = '/register' class="item">
    Register
   </a>
   <a href = '/login' class="item">
    Login
   </a>
+  <%}%>
+  <%if(user){%>
+  <a href = '/logout' class="item">
+   Logout
+  </a>
+  <%}%>
+  
 </div>

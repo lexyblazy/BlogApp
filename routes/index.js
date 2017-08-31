@@ -2,6 +2,7 @@ const router = require('express').Router();
 const postController = require('../controllers/postControllers');
 const categoryController = require('../controllers/categoryControllers');
 const userController = require('../controllers/userControllers');
+const authController = require('../controllers/authControllers');
 const {catchErrors} = require('../handlers/errorhandlers')
 
 //============
@@ -45,5 +46,11 @@ router.get('/categories/:category',catchErrors(categoryController.getCategory));
 //===========
 //USER ROUTES
 //===========
-router.get('/register',userController.registerForm);
+router.get('/register',userController.registerForm,);
+router.post('/register',
+            userController.validateRegister,
+            catchErrors(userController.register),
+            authController.login
+        );
+
 module.exports = router;
