@@ -1,6 +1,14 @@
 <% layout('layout')%>
 <div class = 'ui container'>
-    <% posts.forEach(function(post){%>
+    <div class='ui container text'>
+        <h2 ><%=category.name.toUpperCase()%></h2>
+        <%if(category.posts.length === 1){%>
+            <span class='ui floated right item'><%=category.posts.length%> Post</span>
+        <%}else{%>
+             <span class='ui floated right item'><%=category.posts.length%> Posts</span>
+        <%}%>
+    </div>
+    <% category.posts.forEach(function(post){%>
         
             <div class = 'ui container main text segment'>
             <h2 class='header'><%=post.title.toUpperCase()%></h2>

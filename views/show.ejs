@@ -3,7 +3,7 @@
 <div class = 'ui container segment'>
     <h2 class='header'><%=post.title%></h2>
     <small><%=post.date.toDateString()%></small><br>
-    <img src="/uploads/<%=post.image%>" alt="Nice Image" width='100%'><br><br><hr>
+    <img src="/uploads/<%=post.image%>" alt="Nice Image" width='100%' height='500px'><br><br><hr>
     <p><%-post.content%></p>
     <a href="/posts" class='ui red inverted button'>Back</a>
     <a href="/posts/<%=post._id%>/edit" class='ui orange inverted button'>Edit</a>

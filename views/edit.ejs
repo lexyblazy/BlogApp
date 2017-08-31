@@ -12,7 +12,7 @@
         <div class = 'field'>
             <label for="category">Category</label>
             <select name = 'category'>
-                    <option disabled selected>--Choose a categroy--</option>
+                    <option value='<%=post.category%>' selected><%=post.category.toUpperCase()%></option>
                 <%categories.forEach(function(category){%>
 
                     <option value="<%=category.name%>"><%=category.name.toUpperCase()%></option>

@@ -6,11 +6,6 @@
     <div class="content">
         <a href = '/categories/<%=category.name%>'class = "header"><%=category.name.toUpperCase()%></a><br>
         <div class='description'><%=category.description%></div><br>
-        <%if(category.posts.length === 1){%>
-            <span><%=category.posts.length%> Post</span>
-        <%}else{%>
-             <span><%=category.posts.length%> Posts</span>
-        <%}%>
     </div>
 </div><br>
 
