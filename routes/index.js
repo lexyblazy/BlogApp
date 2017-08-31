@@ -15,9 +15,10 @@ router.get('/posts',postController.posts);
 router.get('/posts/new',authController.isLoggedIn,postController.newForm);
 //save the post to the database
 router.post('/posts',
-authController.isLoggedIn,
+            authController.isLoggedIn,
             postController.upload,
             catchErrors(postController.resize),
+            postController.validatePost,
             catchErrors(postController.createNew)
         );
 //show more info about a specific post
@@ -25,9 +26,11 @@ router.get('/posts/:slug',postController.show);
 //render a form to edit a post
 router.get('/posts/:id/edit',authController.isLoggedIn,postController.editForm)
 //update and save post the the db
-router.post('/posts/:id',authController.isLoggedIn,
+router.post('/posts/:id',
+            authController.isLoggedIn,
             postController.upload,
             catchErrors(postController.resize),
+            postController.validatePost,
             catchErrors(postController.updatePost)
         )
 

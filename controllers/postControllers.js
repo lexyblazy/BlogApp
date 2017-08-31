@@ -50,6 +50,19 @@ exports.resize = async (req,res,next)=>{
     next();
 }
 
+//validate the post form data
+exports.validatePost = (req,res,next)=>{
+    req.checkBody('title','Post title cannot be empty').notEmpty();
+    req.checkBody('content','Post must have a content').notEmpty();
+    req.checkBody('category','Post must belong to category').notEmpty();
+
+    const errors = req.validationErrors();
+    if(errors){
+        req.flash('error',errors.map(err=>err.msg));
+        return res.redirect('/posts/new');
+    }
+    next();
+}
 //create the new post and save it to the database
 exports.createNew = async (req,res)=>{
     const post = new Post(req.body);
