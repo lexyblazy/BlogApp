@@ -1,0 +1,18 @@
+<%layout('layout')%>
+<% layout('layout') %>
+<div class='ui container main text segment'>
+   <form class="ui form" method = 'post' action = '/posts/<%=post._id%>/comments' >
+        <h3>Add new comment to "<%=post.title.toUpperCase()%>"</h3>
+        <div class='field'>
+        
+            <label for='comment'>Comment</label>
+            <textarea type="text" name='comment' ></textarea>
+        </div>
+        <div class='field'>
+             <button class="ui button green" type="submit">Submit</button>
+        </div>
+       
+    </form>
+</div>
+
+

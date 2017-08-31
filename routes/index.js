@@ -1,8 +1,9 @@
 const router = require('express').Router();
+const authController = require('../controllers/authControllers');
 const postController = require('../controllers/postControllers');
 const categoryController = require('../controllers/categoryControllers');
 const userController = require('../controllers/userControllers');
-const authController = require('../controllers/authControllers');
+const commentController = require('../controllers/commentControllers');
 const {catchErrors} = require('../handlers/errorhandlers')
 
 //============
@@ -60,4 +61,9 @@ router.get('/login',authController.loginForm);
 router.post('/login',authController.login);
 router.get('/logout',authController.isLoggedIn,authController.logout);
 
+//==============
+//COMMENT ROUTES
+//==============
+
+router.get('/posts/:id/comments/new',catchErrors(commentController.commentForm));
 module.exports = router;
