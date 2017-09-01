@@ -68,7 +68,7 @@ exports.createNew = async (req,res)=>{
     const post = new Post(req.body);
     post.author = req.user;
     const category = await Category.findOne({name:req.body.category});
-    post.category = category._id;
+    post.category = category;
     await post.save();
     await category.posts.push(post);
     await category.save();
