@@ -111,3 +111,4 @@ exports.updatePost = async (req,res)=>{
     await category.save();
     res.redirect(`/posts/${post.slug}`);
 }
+
