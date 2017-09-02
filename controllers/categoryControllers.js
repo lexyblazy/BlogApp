@@ -17,8 +17,9 @@ exports.create =  async (req,res)=>{
 
 exports.getCategory = async (req,res)=>{
     const category = await Category.findOne({name:req.params.category}).populate('posts');
+    const error = `${req.params.category} Category does not exist`
     if(!category){
-        console.log('Category does not exist');
+        req.flash('error',error);
         return res.redirect('/categories')
     }
     res.render('categorypost',{title:`All posts belonging to ${category.name}`,category});
