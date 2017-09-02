@@ -42,9 +42,9 @@ router.post('/posts/:id',
 //show all categories
 router.get('/categories',categoryController.categories);
 //create a new category form
-router.get('/categories/new',categoryController.addForm);
+router.get('/categories/new',authController.isLoggedIn,categoryController.addForm);
 //save the category to DB
-router.post('/categories',catchErrors(categoryController.create));
+router.post('/categories',categoryController.validateCategory,catchErrors(categoryController.create));
 //get a specific category
 router.get('/categories/:category',catchErrors(categoryController.getCategory));
 
