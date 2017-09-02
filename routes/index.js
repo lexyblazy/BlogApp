@@ -72,7 +72,7 @@ router.post('/login',authController.login);
 //log the user out
 router.get('/logout',authController.isLoggedIn,authController.logout);
 //show a user's profile
-router.get('/profile/:id',userController.profile);
+router.get('/profile/:id',catchErrors(userController.profile)); //to do make it a regex route
 //edit user's profile
 router.get('/profile/:id/edit',
             authController.isLoggedIn,

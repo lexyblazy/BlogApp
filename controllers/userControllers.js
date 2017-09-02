@@ -42,7 +42,7 @@ exports.profile = async (req,res)=>{
     const profileUser = await User.findById(req.params.id).populate('posts').populate('comments');
     if(!profileUser){
         req.flash('error','No such user exists');
-        res.redirect('back')
+        return res.redirect('/posts');
     }
     res.render('profile',{title:'Profile Page',profileUser});
 }

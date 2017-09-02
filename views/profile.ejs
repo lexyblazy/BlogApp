@@ -13,6 +13,9 @@
 <%}else{%>
     <span> <%=profileUser.comments.length%>  Comments</span>
 <%}%></h5>
-   <a href="/profile/<%=profileUser._id%>/edit" class='ui inverted purple button'>Edit Profile</a>
+   <%if(user && user._id.equals(profileUser._id)){%>
+     <a href="/profile/<%=profileUser._id%>/edit" class='ui inverted purple button'>Edit Profile</a>
+   <%}%>
+  
 </div>
 
