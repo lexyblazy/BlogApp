@@ -84,7 +84,7 @@ exports.createNew = async (req,res)=>{
 
 //show more info about a specific post
 exports.show = async (req,res)=>{
-    const post = await Post.findOne({slug:req.params.slug}).populate('category').populate('comments');
+    const post = await Post.findOne({slug:req.params.slug}).populate('category').populate('comments').populate('author');
     if(!post){
         req.flash('error','Cannot find the requested post');
         return res.redirect('/posts');
