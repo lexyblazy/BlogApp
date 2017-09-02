@@ -56,16 +56,30 @@ router.get('/categories/:category',catchErrors(categoryController.getCategory));
 //===========
 //USER ROUTES
 //===========
-router.get('/register',userController.registerForm,);
+
+//render a register form
+router.get('/register',userController.registerForm);
+//register the user then log them in
 router.post('/register',
             userController.validateRegister,
             catchErrors(userController.register),
             authController.login
         );
+//render the login form
 router.get('/login',authController.loginForm);
+//log the user in
 router.post('/login',authController.login);
+//log the user out
 router.get('/logout',authController.isLoggedIn,authController.logout);
+//show a user's profile
 router.get('/profile/:id',userController.profile);
+//edit user's profile
+router.get('/profile/:id/edit',
+            authController.isLoggedIn,
+            catchErrors(authController.checkProfileOwnership),
+            (req,res)=>{
+    res.json('You own this profile');
+})
 
 //==============
 //COMMENT ROUTES

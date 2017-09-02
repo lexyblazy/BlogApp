@@ -1,5 +1,6 @@
 const passport = require('passport');
 const Post = require('../models/post');
+const User = require('../models/user');
 
 //the login middleware
 exports.login = passport.authenticate('local',{
@@ -35,6 +36,17 @@ exports.checkPostOwnership = async (req,res,next) =>{
     if(req.user._id.equals(post.author._id)){
         return next();
     }
-    req.flash('error','You do not own this post there you can edit it');
-    res.redirect('back');
+    req.flash('error','You dont have permission to do that');
+    res.redirect(`/posts/${post.slug}`);
+   
+}
+
+exports.checkProfileOwnership = async (req,res,next)=>{
+    const user = await User.findById(req.params.id);
+    if(req.user._id.equals(user._id)){
+        return next();
+    };
+    req.flash('error','You are not authorized to do that');
+    res.redirect(`/profile/${user._id}`);
+   
 }
