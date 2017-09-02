@@ -25,13 +25,18 @@ router.post('/posts',
 //show more info about a specific post
 router.get('/posts/:slug',postController.show);
 //render a form to edit a post
-router.get('/posts/:id/edit',authController.isLoggedIn,postController.editForm)
+router.get('/posts/:id/edit',
+            authController.isLoggedIn,
+            catchErrors(authController.checkPostOwnership),
+            postController.editForm
+        );
 //update and save post the the db
 router.post('/posts/:id',
             authController.isLoggedIn,
             postController.upload,
             catchErrors(postController.resize),
             postController.validatePost,
+            catchErrors(authController.checkPostOwnership),
             catchErrors(postController.updatePost)
         )
 
