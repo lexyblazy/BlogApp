@@ -18,6 +18,7 @@ exports.validateComment = (req,res,next)=>{
 exports.createComment = async (req,res)=>{
     //create the comment and add it to the databse
     const comment = new Comment(req.body);
+    comment.author = req.user;
     await comment.save();
     //find the post related to the comment
     const post = await Post.findById(req.params.id);

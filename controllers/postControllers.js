@@ -77,7 +77,7 @@ exports.createNew = async (req,res)=>{
 
 //show more info about a specific post
 exports.show = async (req,res)=>{
-    const post = await Post.findOne({slug:req.params.slug}).populate('comments');
+    const post = await Post.findOne({slug:req.params.slug}).populate('category').populate('comments');
     if(!post){
         throw Error('Cannot find the specified post');
         return res.redirect('/');
@@ -87,7 +87,7 @@ exports.show = async (req,res)=>{
 
 //render a form to edit a post
 exports.editForm = async (req,res)=>{
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate('category');
     if(!post){
         console.log('Post does not exist');
         return res.redirect('/posts')

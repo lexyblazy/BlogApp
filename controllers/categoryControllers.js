@@ -12,6 +12,7 @@ exports.addForm = (req,res)=>{
 exports.create =  async (req,res)=>{
  const category = new Category(req.body);
  await category.save();
+ req.flash('success','New category has been added')
  res.redirect('/categories');
 }
 

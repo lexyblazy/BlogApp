@@ -7,16 +7,23 @@
     <p><%-post.content%></p>
     <a href="/posts" class='ui red inverted button'>Back</a>
     <a href="/posts/<%=post._id%>/edit" class='ui orange inverted button'>Edit</a>
-    <a href="/posts/<%=post._id%>/comments/new" class='ui green inverted button'>Comment</a>
+    <a href="/posts/<%=post._id%>/comments/new" class='ui green inverted button'>Comment</a><br>
+    <small>Category: <a href="/categories/<%=post.category.name%>"><%=post.category.name%></a></small>
 </div>
 
+
 <div class = 'ui container segment'>
-    <h3 class='header'>Comments  (<span><%=post.comments.length%> Comments</span>)</h3>
+    <h3 class='header'>Comments (<%if(post.comments.length == 1){%>
+    <span> <%=post.comments.length%>  Comment</span>
+<%}else{%>
+    <span> <%=post.comments.length%>  Comments</span>
+<%}%>)</h3>
    
     <div class="ui relaxed divided list">
     <% post.comments.forEach(function(comment){%>
     <div class = "item">
         <div class="content">
+             <!--<a class = "header" target = '_blank'><%=comment.author.name%></a>-->
             <div class='description'><%=comment.comment%></div><br>
         </div>
     </div><br>

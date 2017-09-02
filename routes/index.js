@@ -65,8 +65,9 @@ router.get('/logout',authController.isLoggedIn,authController.logout);
 //COMMENT ROUTES
 //==============
 
-router.get('/posts/:id/comments/new',catchErrors(commentController.commentForm));
+router.get('/posts/:id/comments/new',authController.isLoggedIn,catchErrors(commentController.commentForm));
 router.post('/posts/:id/comments',
+            authController.isLoggedIn,
             commentController.validateComment,
             catchErrors(commentController.createComment)
          );   
