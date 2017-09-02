@@ -1,9 +1,12 @@
 const promisify = require('es6-promisify');
 const User = require('../models/user')
+
+//render the registerForm
 exports.registerForm = (req,res)=>{
     res.render('register',{title:'Sign up'})
 }
 
+//validate the register Form
 exports.validateRegister = (req,res,next)=>{
     req.checkBody('name','Name is required').notEmpty();
     req.checkBody('email','Email is required').notEmpty();
@@ -24,6 +27,7 @@ exports.validateRegister = (req,res,next)=>{
     next();
 }
 
+//now save the user to the database
 exports.register = async (req,res,next)=>{
     const user = new User({name:req.body.name,email:req.body.email});
     //use promisify to handle callback based API
@@ -31,4 +35,14 @@ exports.register = async (req,res,next)=>{
     await register(user,req.body.password);
     next();
 
+}
+
+//render the profile page
+exports.profile = async (req,res)=>{
+    const profileUser = await User.findById(req.params.id).populate('posts').populate('comments');
+    if(!profileUser){
+        req.flash('error','No such user exists');
+        res.redirect('back')
+    }
+    res.render('profile',{title:'Profile Page',profileUser});
 }

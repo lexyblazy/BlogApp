@@ -1,0 +1,35 @@
+<% layout('layout') %>
+<div class='ui container main text segment'>
+
+   <h2>Name: <%=profileUser.name%></h2>
+   <h3>Email: <%=profileUser.email%></h3>
+   <h4>Posts: <%if(profileUser.posts.length == 1){%>
+    <span> <%=profileUser.posts.length%>  Post</span>
+<%}else{%>
+    <span> <%=profileUser.posts.length%>  Posts</span>
+<%}%></h4>
+   <h5>Comments: <%if(profileUser.comments.length == 1){%>
+    <span> <%=profileUser.comments.length%>  Comment</span>
+<%}else{%>
+    <span> <%=profileUser.comments.length%>  Comments</span>
+<%}%></h5>
+   
+</div>
+<div class='ui container main text segment'>
+    
+   <form class="ui form" method = 'post'>
+        
+        <div class="field">
+            <label for='email'>Name</label>
+            <input name ='name' value='<%=profileUser.name%>' type='text'>
+        </div>
+        <div class='field'>
+            <label for='password'>Email</label>
+            <input type="email" value='<%=profileUser.email%>' name='email' >
+        </div>
+        <div class='field'>
+             <button class="ui button green" type="submit">Update My Account</button>
+        </div>
+       
+    </form>
+</div>

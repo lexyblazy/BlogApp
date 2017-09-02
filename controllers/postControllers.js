@@ -67,8 +67,10 @@ exports.validatePost = (req,res,next)=>{
 exports.createNew = async (req,res)=>{
     const post = new Post(req.body);
     post.author = req.user;
+    //find the category related to the post
     const category = await Category.findOne({name:req.body.category});
     post.category = category;
+    //find t
     await post.save();
     await category.posts.push(post);
     await category.save();

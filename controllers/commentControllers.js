@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment'); 
+const User = require('../models/user');
 exports.commentForm = async (req,res)=>{
     const post = await Post.findById(req.params.id);
     res.render('newComment',{title:'Comment',post});
@@ -25,5 +26,10 @@ exports.createComment = async (req,res)=>{
     //add the comment to the comments array of the related post
     post.comments.push(comment);
     await post.save();
+    //find the user that created the comment
+    const user = await User.findById(req.user._id);
+    //add the comment to the comments arry of the related user
+    user.comments.push(comment);
+    await user.save();
     res.redirect(`/posts/${post.slug}`);
 }

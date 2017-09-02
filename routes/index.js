@@ -60,6 +60,7 @@ router.post('/register',
 router.get('/login',authController.loginForm);
 router.post('/login',authController.login);
 router.get('/logout',authController.isLoggedIn,authController.logout);
+router.get('/profile/:id',userController.profile);
 
 //==============
 //COMMENT ROUTES
@@ -71,5 +72,6 @@ router.post('/posts/:id/comments',
             commentController.validateComment,
             catchErrors(commentController.createComment)
          );   
+
 
 module.exports = router;
