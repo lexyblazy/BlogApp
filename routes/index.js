@@ -67,7 +67,7 @@ router.post('/register',
         );
 //render the login form
 router.get('/login',authController.loginForm);
-//log the user in
+//log the user in - log the current  user out first before logging in the new user, to prevent overlaps
 router.post('/login',authController.login);
 //log the user out
 router.get('/logout',authController.isLoggedIn,authController.logout);
