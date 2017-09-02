@@ -1,0 +1,19 @@
+<%layout('layout')%>
+<div class='ui container main text segment'>
+    
+   <form class="ui form" method = 'post'>
+        
+        <div class="field">
+            <label for='email'>Name</label>
+            <input name ='name' value='<%=profileUser.name%>' type='text'>
+        </div>
+        <div class='field'>
+            <label for='password'>Email</label>
+            <input type="email" value='<%=profileUser.email%>' name='email' >
+        </div>
+        <div class='field'>
+             <button class="ui button green" type="submit">Update My Account</button>
+        </div>
+       
+    </form>
+</div>

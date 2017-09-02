@@ -77,9 +77,8 @@ router.get('/profile/:id',userController.profile);
 router.get('/profile/:id/edit',
             authController.isLoggedIn,
             catchErrors(authController.checkProfileOwnership),
-            (req,res)=>{
-    res.json('You own this profile');
-})
+            catchErrors(userController.editProfileForm)
+        )
 
 //==============
 //COMMENT ROUTES

@@ -50,3 +50,4 @@ exports.checkProfileOwnership = async (req,res,next)=>{
     res.redirect(`/profile/${user._id}`);
    
 }
+

@@ -46,3 +46,12 @@ exports.profile = async (req,res)=>{
     }
     res.render('profile',{title:'Profile Page',profileUser});
 }
+
+exports.editProfileForm = async (req,res)=>{
+    const profileUser = await User.findById(req.params.id);
+    if(!profileUser){
+        req.flash('error','No such user exists');
+        return res.redirect('back');
+    }
+    res.render('editProfile',{title:'Edit your Profile',profileUser});
+}
