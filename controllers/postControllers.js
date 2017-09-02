@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const Category = require('../models/category');
+const  User = require('../models/user');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid');
@@ -70,10 +71,14 @@ exports.createNew = async (req,res)=>{
     //find the category related to the post
     const category = await Category.findOne({name:req.body.category});
     post.category = category;
-    //find t
+    //find the user that created the post
+    const user = await User.findById(req.user.id);
     await post.save();
+
     await category.posts.push(post);
+    await user.posts.push(post);
     await category.save();
+    await user.save();
     res.redirect('/posts');
 }
 
@@ -81,8 +86,8 @@ exports.createNew = async (req,res)=>{
 exports.show = async (req,res)=>{
     const post = await Post.findOne({slug:req.params.slug}).populate('category').populate('comments');
     if(!post){
-        throw Error('Cannot find the specified post');
-        return res.redirect('/');
+        req.flash('error','Cannot find the requested post');
+        return res.redirect('/posts');
     }
     res.render('show',{title:post.title,post});
 }
