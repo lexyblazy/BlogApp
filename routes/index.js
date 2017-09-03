@@ -79,6 +79,15 @@ router.get('/profile/:id/edit',
             catchErrors(authController.checkProfileOwnership),
             catchErrors(userController.editProfileForm)
         )
+router.post('/profile/:id',
+            authController.isLoggedIn,
+            catchErrors(authController.checkProfileOwnership),
+            catchErrors(userController.updateProfile)
+        )
+
+
+
+//update the user's profile
 
 //==============
 //COMMENT ROUTES

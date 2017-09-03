@@ -55,3 +55,22 @@ exports.editProfileForm = async (req,res)=>{
     }
     res.render('editProfile',{title:'Edit your Profile',profileUser});
 }
+
+exports.updateProfile = async (req,res)=>{
+    const updates = {
+        name:req.body.name,
+        email:req.body.email
+    }
+    const profileUser = await User.findByIdAndUpdate( req.params.id,{$set:updates},{
+        new:true,
+        runValidators:true,
+        context:'query'
+    });
+    if(!profileUser){
+        req.flash('error','No such user exists');
+        return res.redirect('back');
+    }
+    req.flash('success','Profile update was succesful');
+    res.redirect('back');
+
+}

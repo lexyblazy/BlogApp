@@ -24,6 +24,7 @@
    
     <div class="ui relaxed divided list">
     <% post.comments.forEach(function(comment){%>
+    <%=JSON.stringify(comment,undefined,2)%>
     <div class = "item">
         <div class="content">
              <!--<a class = "header" target = '_blank'><%=comment.author.name%></a>-->
