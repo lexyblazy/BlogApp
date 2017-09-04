@@ -9,16 +9,6 @@
             <label for='content'>Content</label>
             <textarea name ='content' placeholder='Post Content'><%=post.content%></textarea>
         </div>
-        <div class = 'field'>
-            <label for="category">Category</label>
-            <select name = 'category'>
-                    <option value='<%=post.category.name%>' selected><%=post.category.name.toUpperCase()%></option>
-                <%categories.forEach(function(category){%>
-
-                    <option value="<%=category.name%>"><%=category.name.toUpperCase()%></option>
-                <%})%>
-            </select>
-        </div>
         <div class='field'>
             
              <input type="file" name='image' accept = 'image/jpeg, image/png, image/gif'>

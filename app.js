@@ -61,7 +61,6 @@ app.use(async (req,res,next)=>{
 })
 
 app.use(expressValidator()); //exposes a bunch of methods to app
-app.use(sanitizer());
 //passport setup
 app.use(session({
     secret:process.env.SECRET,
@@ -82,6 +81,7 @@ app.use((req,res,next)=>{
     next();
 })
 
+app.use(sanitizer());
 //routes
 app.use(routes);
 

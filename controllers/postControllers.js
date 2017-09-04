@@ -55,8 +55,9 @@ exports.resize = async (req,res,next)=>{
 exports.validatePost = (req,res,next)=>{
     req.checkBody('title','Post title cannot be empty').notEmpty();
     req.checkBody('content','Post must have a content').notEmpty();
-    req.checkBody('category','Post must belong to category').notEmpty();
-
+    if(req.body.category){
+        req.checkBody('category','Post must belong to category').notEmpty();
+    }
     const errors = req.validationErrors();
     if(errors){
         req.flash('error',errors.map(err=>err.msg));
@@ -109,9 +110,6 @@ exports.editForm = async (req,res)=>{
 exports.updatePost = async (req,res)=>{
     req.body.content = req.sanitize(req.body.content); // sanitize the content field
     const post = await Post.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true}).exec();
-    const category = await Category.findOne({name:req.body.category});
-    await category.posts.push(post);
-    await category.save();
     res.redirect(`/posts/${post.slug}`);
 }
 
