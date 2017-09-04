@@ -113,3 +113,10 @@ exports.updatePost = async (req,res)=>{
     res.redirect(`/posts/${post.slug}`);
 }
 
+//delete a post
+exports.deletePost = async (req,res)=>{
+    await Post.findByIdAndRemove(req.params.id);
+    req.flash('success','Post has been successfully deleted');
+    res.redirect('/posts');
+}
+

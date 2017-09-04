@@ -39,6 +39,11 @@ router.post('/posts/:id',
             catchErrors(authController.checkPostOwnership),
             catchErrors(postController.updatePost)
         )
+//delete a post
+router.post('/posts/:id/delete',
+            catchErrors(authController.checkPostOwnership),
+            catchErrors(postController.deletePost)
+        )
 
 //=================
 //CATEGORIES ROUTES
