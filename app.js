@@ -12,6 +12,7 @@ const expressValidator = require('express-validator');
 const passport = require('passport');
 const passportLocal = require('passport-local');
 const session = require('express-session');
+const sanitizer = require('express-sanitizer');
 //tell mongoose to use es6 promises
 mongoose.Promise = global.Promise;
 
@@ -47,6 +48,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(flash());
 
+
 //make the categories data available on all routes
 app.use(async (req,res,next)=>{
     try {
@@ -59,7 +61,7 @@ app.use(async (req,res,next)=>{
 })
 
 app.use(expressValidator()); //exposes a bunch of methods to app
-
+app.use(sanitizer());
 //passport setup
 app.use(session({
     secret:process.env.SECRET,

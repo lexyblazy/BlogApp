@@ -66,8 +66,10 @@ exports.validatePost = (req,res,next)=>{
 }
 //create the new post and save it to the database
 exports.createNew = async (req,res)=>{
+    req.body.content = req.sanitize(req.body.content);  // sanitize the content field
     const post = new Post(req.body);
     post.author = req.user;
+
     //find the category related to the post
     const category = await Category.findOne({name:req.body.category});
     post.category = category;
@@ -105,6 +107,7 @@ exports.editForm = async (req,res)=>{
 
 //update and save the edited post to the db
 exports.updatePost = async (req,res)=>{
+    req.body.content = req.sanitize(req.body.content); // sanitize the content field
     const post = await Post.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true}).exec();
     const category = await Category.findOne({name:req.body.category});
     await category.posts.push(post);
