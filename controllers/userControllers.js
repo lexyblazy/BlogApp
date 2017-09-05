@@ -61,15 +61,12 @@ exports.updateProfile = async (req,res)=>{
         name:req.body.name,
         email:req.body.email
     }
-    const profileUser = await User.findByIdAndUpdate( req.params.id,{$set:updates},{
+    const profileUser = await User.findByIdAndUpdate( req.user._id,{$set:updates},{
         new:true,
         runValidators:true,
         context:'query'
     });
-    if(!profileUser){
-        req.flash('error','No such user exists');
-        return res.redirect('back');
-    }
+     
     req.flash('success','Profile update was succesful');
     res.redirect('back');
 

@@ -1,7 +1,3 @@
 node_modules
 public/uploads
-<<<<<<< HEAD
 variables.env
-=======
-variables.env
->>>>>>> 889a54120fe3bc5f9f35f0e9675e96e5266fe0a1
