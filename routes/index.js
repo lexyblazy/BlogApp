@@ -89,6 +89,12 @@ router.post('/profile/:id',
             catchErrors(authController.checkProfileOwnership),
             catchErrors(userController.updateProfile)
         )
+router.post('/account/forgot',catchErrors(authController.forgot));
+
+router.get('/account/reset/:token',catchErrors(authController.reset));
+router.post('/account/reset/:token',authController.confirmPasswords,catchErrors(authController.setPassword));
+
+
 
 
 
@@ -103,7 +109,10 @@ router.post('/posts/:id/comments',
             authController.isLoggedIn,
             commentController.validateComment,
             catchErrors(commentController.createComment)
-         );   
+         ); 
+router.get('*',(req,res)=>{
+    res.send('Route does not exist');
+})  
 
 
 module.exports = router;

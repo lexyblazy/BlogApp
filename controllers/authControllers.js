@@ -1,7 +1,8 @@
 const passport = require('passport');
 const Post = require('../models/post');
 const User = require('../models/user');
-
+const crypto = require('crypto');
+const promisify = require('es6-promisify');
 //the login middleware
 exports.login = passport.authenticate('local',{
     successRedirect:'/posts',
@@ -51,3 +52,74 @@ exports.checkProfileOwnership = async (req,res,next)=>{
    
 }
 
+exports.forgot = async (req,res)=>{
+    //check if that user has an account
+    const user = await User.findOne({email:req.body.email});
+    if(!user){
+        req.flash('error','No account exists for that email');
+        return res.redirect('back');
+    }
+    //generate a password reset token and expiry
+    user.resetPasswordToken = crypto.randomBytes(20).toString('hex');
+    user.resetPasswordExpires = Date.now() + (60*60*1000);
+    await user.save();
+    // //send them the reset url
+    const resetURL = `http://${req.headers.host}/account/reset/${user.resetPasswordToken}`;
+    req.flash('success',`Password reset url has been sent to your email ${resetURL}`);
+    res.redirect('back');
+}
+
+
+exports.reset = async (req,res)=>{
+    //find the user by their token and its validity
+    const user = await User.findOne({
+        resetPasswordToken:req.params.token,
+        resetPasswordExpires:{$gt:Date.now()}
+    });
+
+    if(!user){
+        req.flash('error','Password reset token is invalid or has expired');
+        return res.redirect('/login');
+    }
+
+    res.render('resetForm',{title:'Reset Password'});
+}
+
+exports.confirmPasswords = (req,res,next)=>{
+    req.checkBody('password','Password field cannot be empty').notEmpty();
+    req.checkBody('confirm-password','Passwords do not match').equals(req.body.password);
+    const errors = req.validationErrors();
+    if(errors){
+        req.flash('error',  errors.map(err=>err.msg));
+        return res.redirect('back');
+    }
+    next(); //keep moving on if no errors
+  
+}
+
+exports.setPassword = async (req,res)=>{
+      //find the user by their token and its validity
+      const user = await User.findOne({
+        resetPasswordToken:req.params.token,
+        resetPasswordExpires:{$gt:Date.now()}
+    });
+
+    if(!user){
+        req.flash('error','Password reset token is invalid or has expired');
+        return res.redirect('/login');
+    }
+    //promisify the user.setPassword
+    const setPassword = promisify(user.setPassword,user);
+    //set new password
+    await setPassword(req.body.password);
+    //remove the following fields
+    user.resetPasswordExpires = undefined;
+    user.resetPasswordToken = undefined;
+    const updatedUser = await user.save();
+    //promisify the req.login
+    const login = promisify(req.login,req);
+    await login(updatedUser);
+    req.flash('success','password has been successfully updated, You are now logged in');
+    res.redirect('/posts');
+
+}
