@@ -120,3 +120,18 @@ exports.deletePost = async (req,res)=>{
     res.redirect('/posts');
 }
 
+//search for a post
+exports.searchPosts = async (req,res)=>{
+    const posts = await Post.find({
+        $text:{
+            $search: req.body.search
+        }
+    },{
+        score:{$meta:'textScore'}
+    }).sort({
+        score:{$meta:'textScore'}
+    }).limit(5).populate('category').populate('comments').populate('author');
+
+    res.render('searchResults',{query:req.body.search,posts,title:`Search results for ${req.body.search}`})
+}
+

@@ -35,6 +35,12 @@ const postSchema = new mongoose.Schema({
   
 })
 
+
+postSchema.index({
+    title:'text',
+    content:'text'
+})
+
 postSchema.pre('save',function(next){
     if(!this.isModified('title')){
         return next();

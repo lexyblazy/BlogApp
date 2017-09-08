@@ -114,5 +114,8 @@ router.get('*',(req,res)=>{
     res.send('Route does not exist');
 })  
 
-
+//===========
+//API SEARCH
+//===========
+router.post('/posts/api/search',catchErrors(postController.searchPosts));
 module.exports = router;
