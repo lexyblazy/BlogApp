@@ -15,6 +15,17 @@ const commentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
     }
+},{
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true}
 });
+
+function autopopulate(next){
+    this.populate('author'),
+    next();
+}
+
+commentSchema.pre('find',autopopulate);
+commentSchema.pre('findOne',autopopulate);
 
 module.exports = mongoose.model('Comment',commentSchema);
