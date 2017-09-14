@@ -110,12 +110,15 @@ router.get('/profile/:id/posts',catchErrors(postController.userPost))
 //COMMENT ROUTES
 //==============
 
-router.get('/posts/:id/comments/new',authController.isLoggedIn,catchErrors(commentController.commentForm));
 router.post('/posts/:id/comments',
             authController.isLoggedIn,
             commentController.validateComment,
             catchErrors(commentController.createComment)
          ); 
+
+//==========================
+//Handle unregistered routes
+//==========================
 router.get('*',(req,res)=>{
     res.send('Route does not exist');
 })  

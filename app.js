@@ -21,7 +21,7 @@ mongoose.Promise = global.Promise;
 const routes = require('./routes/index');
 const Category = require('./models/category');
 const User = require('./models/user');
-
+const helpers = require('./helpers');
 
 //environmental variables config
 require('dotenv').config({path:'variables.env'})
@@ -75,6 +75,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
+    res.locals.h = helpers;
     res.locals.user = req.user || null;
     res.locals.errors = req.flash('error');
     res.locals.success = req.flash('success');

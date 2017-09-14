@@ -1,10 +1,10 @@
 const Post = require('../models/post');
 const Comment = require('../models/comment'); 
 const User = require('../models/user');
-exports.commentForm = async (req,res)=>{
-    const post = await Post.findById(req.params.id);
-    res.render('newComment',{title:'Comment',post});
-}
+// exports.commentForm = async (req,res)=>{
+//     const post = await Post.findById(req.params.id);
+//     res.render('newComment',{title:'Comment',post});
+// }
 
 exports.validateComment = (req,res,next)=>{
     req.checkBody('comment','Comment field cannot be empty').notEmpty();
