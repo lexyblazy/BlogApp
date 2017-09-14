@@ -33,9 +33,19 @@ const postSchema = new mongoose.Schema({
         ref:'Comment'
     }]
   
+},{
+    toJSON:{virtuals:true},
+    toObject:{virtuals:true}
 })
 
+function autopopulate(next){
+    this.populate('category');
+    this.populate('author');
+    next();
+}
 
+postSchema.pre('find',autopopulate);
+postSchema.pre('findOne',autopopulate);
 postSchema.index({
     title:'text',
     content:'text'

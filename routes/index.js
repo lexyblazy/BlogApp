@@ -84,15 +84,21 @@ router.get('/profile/:id/edit',
             catchErrors(authController.checkProfileOwnership),
             catchErrors(userController.editProfileForm)
         )
+//update the user's profile
 router.post('/profile/:id',
             authController.isLoggedIn,
             catchErrors(authController.checkProfileOwnership),
             catchErrors(userController.updateProfile)
         )
+//password reset flow
 router.post('/account/forgot',catchErrors(authController.forgot));
-
 router.get('/account/reset/:token',catchErrors(authController.reset));
 router.post('/account/reset/:token',authController.confirmPasswords,catchErrors(authController.setPassword));
+
+//show a user's posts
+router.get('/profile/:id/posts',catchErrors(postController.userPost))
+
+
 
 
 

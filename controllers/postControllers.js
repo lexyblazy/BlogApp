@@ -21,7 +21,7 @@ exports.home = (req,res)=>{
 
 //get all posts from the database
 exports.posts = async (req,res)=>{
-    const posts = await Post.find({}).populate('author').populate('category');
+    const posts = await Post.find({});
     res.render('posts',{title:'All Blog Posts',posts});
 }
 
@@ -67,6 +67,7 @@ exports.validatePost = (req,res,next)=>{
 }
 //create the new post and save it to the database
 exports.createNew = async (req,res)=>{
+    req.body.title = req.sanitize(req.body.title);
     req.body.content = req.sanitize(req.body.content);  // sanitize the content field
     const post = new Post(req.body);
     post.author = req.user;
@@ -87,7 +88,7 @@ exports.createNew = async (req,res)=>{
 
 //show more info about a specific post
 exports.show = async (req,res)=>{
-    const post = await Post.findOne({slug:req.params.slug}).populate('category').populate('comments').populate('author');
+    const post = await Post.findOne({slug:req.params.slug}).populate('comments');
     if(!post){
         req.flash('error','Cannot find the requested post');
         return res.redirect('/posts');
@@ -97,7 +98,7 @@ exports.show = async (req,res)=>{
 
 //render a form to edit a post
 exports.editForm = async (req,res)=>{
-    const post = await Post.findById(req.params.id).populate('category');
+    const post = await Post.findById(req.params.id)
     if(!post){
         console.log('Post does not exist');
         return res.redirect('/posts')
@@ -135,3 +136,8 @@ exports.searchPosts = async (req,res)=>{
     res.render('searchResults',{query:req.body.search,posts,title:`Search results for ${req.body.search}`})
 }
 
+exports.userPost = async (req,res)=>{
+    const user = await User.findById(req.params.id).populate('posts');
+    const posts = user.posts
+    res.render('posts',{title:`${user.name} Posts`,posts})
+} 
