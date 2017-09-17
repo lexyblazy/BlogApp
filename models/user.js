@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const passportLocalMongoose = require('passport-local-mongoose');
 const mongooseErrors = require('mongoose-mongodb-errors');
+const md5 = require('md5');
 
 mongoose.Promise = global.Promise;
 
@@ -32,4 +33,8 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose,{usernameField:'email'});
 userSchema.plugin(mongooseErrors);
 
+userSchema.virtual('gravatar').get(function(){
+    const hash = md5(this.email);
+    return `https://gravatar.com/avatar/${hash}?s=200`;
+})
 module.exports = mongoose.model('User',userSchema);

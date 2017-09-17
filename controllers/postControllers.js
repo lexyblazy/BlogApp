@@ -15,6 +15,7 @@ const multerOptions = {
         }
     }
 }
+
 exports.home = (req,res)=>{
     res.redirect('/posts')
 }
@@ -67,7 +68,7 @@ exports.validatePost = (req,res,next)=>{
 }
 //create the new post and save it to the database
 exports.createNew = async (req,res)=>{
-    req.body.title = req.sanitize(req.body.title);
+    req.body.title = req.sanitize(req.body.title); //sanitize the title field
     req.body.content = req.sanitize(req.body.content);  // sanitize the content field
     const post = new Post(req.body);
     post.author = req.user;
@@ -77,9 +78,11 @@ exports.createNew = async (req,res)=>{
     post.category = category;
     //find the user that created the post
     const user = await User.findById(req.user.id);
+    //save post to db
     await post.save();
-
+    //add the post to the related category 
     await category.posts.push(post);
+    //add the post to the user's post
     await user.posts.push(post);
     await category.save();
     await user.save();

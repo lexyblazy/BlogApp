@@ -31,7 +31,7 @@
   </a>
   <%}%>
   <%if(user){%>
-  <a  class = 'ui item' href = '/profile/<%=user._id%>'><%=user.name%></a>
+  <a  class = 'ui item' href = '/profile/<%=user._id%>'><img src = '<%=user.gravatar%>' /></a>
   <a href = '/logout' class="ui item">
    Logout
   </a>
