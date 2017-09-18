@@ -22,8 +22,18 @@ exports.home = (req,res)=>{
 
 //get all posts from the database
 exports.posts = async (req,res)=>{
-    const posts = await Post.find({});
-    res.render('posts',{title:'All Blog Posts',posts});
+    const page = req.params.page || 1;
+    const limit = 4;
+    const skip = (page * limit) - limit;
+    const postsPromise = Post.find({}).limit(limit).skip(skip);
+    const countPromise = Post.count();
+    const [posts,count] = await Promise.all([postsPromise,countPromise]);
+    const pages = Math.ceil(count/limit);
+    if(posts.length === 0 && skip){
+        req.flash('error','Page not found');
+        res.redirect(`/posts/page/${pages}`)
+    }
+    res.render('posts',{title:'All Blog Posts',posts,page,pages,count});
 }
 
 //render a create new post form
@@ -116,6 +126,7 @@ exports.editForm = async (req,res)=>{
 exports.updatePost = async (req,res)=>{
     req.body.content = req.sanitize(req.body.content); // sanitize the content field
     const post = await Post.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true}).exec();
+    req.flash('success','Post has been updated');
     res.redirect(`/posts/${post.slug}`);
 }
 

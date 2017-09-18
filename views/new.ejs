@@ -11,12 +11,12 @@
         </div>
         <div class = 'field'>
             <label for="category">Category</label>
-            <select name = 'category'>
-                <%categories.forEach(function(category){%>
-
+            
+                <select name = 'category' class='ui fluid search selection dropdown'>
+                 <%categories.forEach(function(category){%>
                     <option value="<%=category.name%>"><%=category.name.toUpperCase()%></option>
-                <%})%>
-            </select>
+                    <%})%>
+                </select>
         </div>
         <div class='field'>
              <input type="file" name='image' accept = 'image/jpeg, image/png, image/gif'>

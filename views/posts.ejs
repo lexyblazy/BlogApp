@@ -15,4 +15,32 @@
             
         </div>   
     <%})%>
+
+     <div class='ui container text segment '>
+        <div class="ui pagination menu">
+        <%if(page > 1){%>
+            <a class="item" href='/posts/page/<%=parseFloat(page) - 1%>'>Prev</a>
+        <%}%>
+            
+
+            <%for(var i = 1; i <= pages;i++){%>
+                <%
+                    let pageClass = '';
+                    if(page == i){
+                        pageClass='active'
+                    }else{
+                        pageClass = ''
+                    }
+                %>
+                 <a href ='/posts/page/<%=i%>' class="item <%=pageClass%>"><%=i%></a>
+            <%}%>
+           
+           
+        <%if(page < pages){%>
+             <a class="item" href='/posts/page/<%=parseFloat(page) + 1%>'>Next</a>
+        <%}%>
+
+        </div>
+    </div>
+
 </div>

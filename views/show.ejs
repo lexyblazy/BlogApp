@@ -1,56 +1,67 @@
 <% layout('layout') %>
 
-<div class = 'ui container segment'>
-    <h2 class='header'><%=post.title.toUpperCase()%></h2>
-    <strong>By<a href='/profile/<%=post.author._id%>'> <%=post.author.name%></a></strong>
-    <small><%=post.date.toDateString()%></small><br>
-    <img src="/uploads/<%=post.image%>" alt="Nice Image" width='100%' height='500px'><br><br><hr>
-    <p><%-post.content%></p>
-    <a href="/posts" class='ui purple inverted button'>Back</a>
-    <!-- <a href="/posts/<%=post._id%>/comments/new" class='ui green inverted button'>Comment</a>-->
-   <%if(user && user._id.equals(post.author._id)){%>
-        <a href="/posts/<%=post._id%>/edit" class='ui orange inverted button'>Edit</a><br><br>
-        <form method = 'post' action='/posts/<%=post._id%>/delete'>
-            <button type="submit" class='ui red button'>Delete</button>
+    <div class='ui container segment'>
+        <h2 class='header'>
+            <%=post.title.toUpperCase()%>
+        </h2>
+        <strong>By<a href='/profile/<%=post.author._id%>'> <%=post.author.name%></a></strong>
+        <small><%=post.date.toDateString()%></small><br>
+        <img src="/uploads/<%=post.image%>" alt="Nice Image" width='100%' height='500px'><br><br>
+        <hr>
+        <p>
+            <%-post.content%>
+        </p>
+    
+        <%if(user && user._id.equals(post.author._id)){%>
+            <a href="/posts/<%=post._id%>/edit" class='ui orange inverted button'>Edit</a><br><br>
+            <form method='post' action='/posts/<%=post._id%>/delete'>
+                <button type="submit" class='ui red button'>Delete</button>
+            </form>
+            <%}%>
+
+                <br><br><small>Category: <a href="/categories/<%=post.category.name%>"><%=post.category.name%></a></small>
+    </div>
+    <div class='ui container segment'>
+        <form class="ui form" method='post' action='/posts/<%=post._id%>/comments'>
+            <h3>Add new comment to "
+                <%=post.title.toUpperCase()%>"</h3>
+            <div class='field'>
+
+                <label for='comment'>Comment</label>
+                <textarea type="text" name='comment'></textarea>
+            </div>
+            <div class='field'>
+                <button class="ui button green" type="submit">Submit</button>
+            </div>
+
         </form>
-   <%}%>
-   
-    <br><br><small>Category: <a href="/categories/<%=post.category.name%>"><%=post.category.name%></a></small>
-</div>
-<div class='ui container segment'>
-   <form class="ui form" method = 'post' action = '/posts/<%=post._id%>/comments' >
-        <h3>Add new comment to "<%=post.title.toUpperCase()%>"</h3>
-        <div class='field'>
-        
-            <label for='comment'>Comment</label>
-            <textarea type="text" name='comment' ></textarea>
-        </div>
-        <div class='field'>
-             <button class="ui button green" type="submit">Submit</button>
-        </div>
-       
-    </form>
-</div>
+    </div>
 
-<div class = 'ui container segment'>
-    <h3 class='header'>Comments (<%if(post.comments.length == 1){%>
-    <span> <%=post.comments.length%>  Comment</span>
-<%}else{%>
-    <span> <%=post.comments.length%>  Comments</span>
-<%}%>)</h3>
-   
-    <div class="ui relaxed divided list">
-    <% post.comments.forEach(function(comment){%>
-    <div class="item">
-        <img class="ui avatar image" src="<%=comment.author.gravatar%>">
-        <div class="content">
-            <a href = '/profile/<%=comment.author._id%>' class = "header"  target = '_blank' ><%=comment.author.name%></a>
-            <div class='description'><%=comment.comment%></div><br>
-            <time datetime="<%=comment.date%>"><%=h.moment(comment.date).fromNow()%></time>
-        </div>
-  </div>
-   <br>
+    <div class='ui container segment'>
+        <h3 class='header'>Comments (
+            <%if(post.comments.length == 1){%>
+                <span> <%=post.comments.length%>  Comment</span>
+                <%}else{%>
+                    <span> <%=post.comments.length%>  Comments</span>
+                    <%}%>)</h3>
 
-    <%})%>
-    </div>   
-</div>
+        <div class="ui relaxed divided list">
+            <% post.comments.forEach(function(comment){%>
+                <div class="item">
+                    <img class="ui avatar image" src="<%=comment.author.gravatar%>">
+                    <div class="content">
+                        <a href='/profile/<%=comment.author._id%>' class="header" target='_blank'>
+                            <%=comment.author.name%>
+                        </a>
+                        <div class='description'>
+                            <%=comment.comment%>
+                        </div><br>
+                        <time datetime="<%=comment.date%>"><%=h.moment(comment.date).fromNow()%></time>
+                    </div>
+                </div>
+                <br>
+
+                <%})%>
+        </div>
+    </div>
+   
