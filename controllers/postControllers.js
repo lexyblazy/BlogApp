@@ -25,7 +25,7 @@ exports.posts = async (req,res)=>{
     const page = req.params.page || 1;
     const limit = 4;
     const skip = (page * limit) - limit;
-    const postsPromise = Post.find({}).limit(limit).skip(skip);
+    const postsPromise = Post.find({}).limit(limit).skip(skip).sort({date:'desc'});
     const countPromise = Post.count();
     const [posts,count] = await Promise.all([postsPromise,countPromise]);
     const pages = Math.ceil(count/limit);
