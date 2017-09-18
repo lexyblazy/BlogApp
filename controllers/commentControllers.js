@@ -31,5 +31,6 @@ exports.createComment = async (req,res)=>{
     //add the comment to the comments arry of the related user
     user.comments.push(comment);
     await user.save();
+    req.flash('success','New comment has been created')
     res.redirect(`/posts/${post.slug}`);
 }

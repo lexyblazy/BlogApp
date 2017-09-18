@@ -66,13 +66,14 @@ exports.validatePost = (req,res,next)=>{
     }
     next();
 }
+
 //create the new post and save it to the database
 exports.createNew = async (req,res)=>{
+    
     req.body.title = req.sanitize(req.body.title); //sanitize the title field
     req.body.content = req.sanitize(req.body.content);  // sanitize the content field
     const post = new Post(req.body);
     post.author = req.user;
-
     //find the category related to the post
     const category = await Category.findOne({name:req.body.category});
     post.category = category;
@@ -86,6 +87,7 @@ exports.createNew = async (req,res)=>{
     await user.posts.push(post);
     await category.save();
     await user.save();
+    req.flash('success','New Post has been created')
     res.redirect('/posts');
 }
 

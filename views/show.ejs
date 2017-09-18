@@ -41,13 +41,15 @@
    
     <div class="ui relaxed divided list">
     <% post.comments.forEach(function(comment){%>
-    <div class = "item">
+    <div class="item">
+        <img class="ui avatar image" src="<%=comment.author.gravatar%>">
         <div class="content">
-           <a href = '/profile/<%=comment.author._id%>' class = "header"  target = '_blank' ><%=comment.author.name%></a>
+            <a href = '/profile/<%=comment.author._id%>' class = "header"  target = '_blank' ><%=comment.author.name%></a>
             <div class='description'><%=comment.comment%></div><br>
             <time datetime="<%=comment.date%>"><%=h.moment(comment.date).fromNow()%></time>
         </div>
-    </div><br>
+  </div>
+   <br>
 
     <%})%>
     </div>   

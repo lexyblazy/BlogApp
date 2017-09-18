@@ -7,8 +7,8 @@ const postSchema = new mongoose.Schema({
     title:{
         type:String,
         required:'Please supply a post title',
+        unique:'A post with that title already exists',
         trim:true,
-        unique:true
     },
     content:{
         type:String,
@@ -51,11 +51,12 @@ postSchema.index({
     content:'text'
 })
 
-postSchema.pre('save',function(next){
+postSchema.pre('save',async function(next){
     if(!this.isModified('title')){
         return next();
     }
-    this.slug = slug(this.title);
-    next();
+this.slug = slug(this.title);
+  next();
 })
+
 module.exports = mongoose.model('Post',postSchema);

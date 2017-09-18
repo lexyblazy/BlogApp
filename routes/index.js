@@ -103,9 +103,6 @@ router.get('/profile/:id/posts',catchErrors(postController.userPost))
 
 
 
-
-//update the user's profile
-
 //==============
 //COMMENT ROUTES
 //==============

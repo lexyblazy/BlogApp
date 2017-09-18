@@ -1,9 +1,7 @@
 <%layout('layout')%>
 <div class='ui container main text segment'>
     
-   <pre>
-   <%=h.dump(profileUser.gravatar)%>
-   </pre>
+  
    <form class="ui form" method = 'post' action='/profile/<%=profileUser._id%>'>
         
         <div class="field">
