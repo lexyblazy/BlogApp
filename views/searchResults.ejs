@@ -4,13 +4,14 @@
 <h2 class= 'text-center'>No results for "<%=query%>"</h2>
 <%}%>
 <%if(posts.length > 0){%>
-    <h2 class='lead text-center'>Search results for "<%=query%>" - <%=posts.length%> 
+
+    <h4 class='lead text-center'>Search results for "<%=query%>" - <%=posts.length%> 
     <%if(posts.length === 1){%>
        Post
     <%}else{%>
         Posts
     <%}%>
-    </h2>
+    </h4>
 <%}%>
 </div>
 

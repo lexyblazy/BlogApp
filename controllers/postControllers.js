@@ -147,7 +147,7 @@ exports.searchPosts = async (req,res)=>{
         score:{$meta:'textScore'}
     }).sort({
         score:{$meta:'textScore'}
-    }).limit(5).populate('category').populate('comments').populate('author');
+    }).limit(10);
 
     res.render('searchResults',{query:req.body.search,posts,title:`Search results for ${req.body.search}`})
 }
