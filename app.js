@@ -34,7 +34,9 @@ app.engine('ejs',engine);
 app.set('view engine','ejs');
 
 //connect to the database
-mongoose.connect(process.env.DATABASE,(err)=>{
+const localDB = 'mongodb://127.0.0.1:27017/blog-app';
+const DB =  process.env.DATABASE || localDB;
+mongoose.connect(DB, (err)=>{
     if(err){
         console.log('Cannot connect to database')
     }else{
