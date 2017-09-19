@@ -6,6 +6,9 @@
   "engines": {
     "node":">=7.6.0"
   },
+  "now":{
+    "dotenv" : "variables.env.now"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start":"node app.js",
