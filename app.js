@@ -35,7 +35,8 @@ app.set('view engine','ejs');
 
 //connect to the database
 const localDB = 'mongodb://127.0.0.1:27017/blog-app';
-const DB =  process.env.DATABASE || localDB;
+const DB = localDB   ||  process.env.DATABASE ;
+const PORT = process.env.PORT || 7777;
 mongoose.connect(DB, (err)=>{
     if(err){
         console.log('Cannot connect to database')
@@ -101,6 +102,6 @@ app.use(sanitizer());
 app.use(routes);
 
 //port
-app.listen(process.env.PORT,()=>{
+app.listen(PORT,()=>{
     console.log('Server is up and running')
 })
