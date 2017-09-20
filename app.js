@@ -70,19 +70,7 @@ app.use(async (req,res,next)=>{
     next();
 })
 
-app.use(expressValidator({
-    customValidators: {
-       isArray: function(value) {
-          return Array.isArray(value);
-       },
-       notEmpty: function(array) {
-          return array.length > 0;
-       },
-       gte: function(param, num) {
-          return param >= num;
-       }
-    }
-  }));//exposes a bunch of methods to app
+app.use(expressValidator());//exposes a bunch of methods to app
 //passport setup
 app.use(session({
     secret:process.env.SECRET,

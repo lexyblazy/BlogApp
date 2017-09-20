@@ -4,7 +4,8 @@ const postController = require('../controllers/postControllers');
 const categoryController = require('../controllers/categoryControllers');
 const userController = require('../controllers/userControllers');
 const commentController = require('../controllers/commentControllers');
-const {catchErrors} = require('../handlers/errorhandlers')
+const {catchErrors} = require('../handlers/errorhandlers');
+const multipartMiddleware = require('connect-multiparty')();
 
 //============
 //POSTS ROUTES
@@ -19,8 +20,8 @@ router.get('/posts/new',authController.isLoggedIn,postController.newForm);
 //save the post to the database
 router.post('/posts',
             authController.isLoggedIn,
-            postController.upload,
-            catchErrors(postController.resize),
+            multipartMiddleware,
+            catchErrors(postController.upload),
             postController.validatePost,
             catchErrors(postController.createNew)
         );
@@ -35,10 +36,10 @@ router.get('/posts/:id/edit',
 //update and save post the the db
 router.post('/posts/:id',
             authController.isLoggedIn,
-            postController.upload,
-            catchErrors(postController.resize),
-            postController.validatePost,
             catchErrors(authController.checkPostOwnership),
+            multipartMiddleware,
+            catchErrors(postController.upload),
+            postController.validatePost,
             catchErrors(postController.updatePost)
         )
 //delete a post

@@ -5,4 +5,3 @@ $('.message .close')
     .transition('fade')
   ;
 })
-;

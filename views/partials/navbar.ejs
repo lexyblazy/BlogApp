@@ -1,5 +1,5 @@
 
-<div class="ui inverted menu">
+<div class="ui stackable inverted menu">
  <a class="active item" href= '/' >
     BlogApp
   </a>
@@ -12,8 +12,8 @@
   <a href = '/posts/new' class="item">
    New Post
   </a>
-  <div class="right menu">
-  <form method = 'post' action = '/posts/api/search'>
+  <!--<div class="right menu">-->
+    <form method = 'post' action = '/posts/api/search'>
       <div class="item">
         <div class="ui icon input">
           <input type="text" name = 'search' placeholder="Search...">
@@ -21,21 +21,21 @@
     &nbsp; &nbsp;&nbsp;<input type="submit" class='ui inverted button' value="Go">
       </div>
   </form>
-    
     <%if(!user){%>
-  <a href = '/register' class="ui item">
+  <a href = '/register' class="item">
    Register
   </a>
-  <a href = '/login' class="ui item">
+  <a href = '/login' class="item">
    Login
   </a>
   <%}%>
   <%if(user){%>
-  <a href = '/profile/<%=user._id%>' class="ui item"><%=user.name%></a>
-  <a  class = 'ui item' href = '/profile/<%=user._id%>'><img src = '<%=user.gravatar%>' /></a>
+  <a href = '/profile/<%=user._id%>' class="item"><%=user.name%></a>
+  <a  class = 'item' href = '/profile/<%=user._id%>'><img src = '<%=user.gravatar%>' /></a>
   <a href = '/logout' class="ui item">
    Logout
   </a>
   <%}%>
-  </div>
+  
+  <!--</div>-->
 </div>

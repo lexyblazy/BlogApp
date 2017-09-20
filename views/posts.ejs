@@ -1,35 +1,39 @@
 <% layout('layout')%>
-<div class = 'ui container'>
-    <% posts.forEach(function(post){%>
-        
-            <div class = 'ui container main text segment'>
-            <h2 class='header'><%=post.title.toUpperCase()%></h2>
-            <small><%=post.date.toDateString()%></small>
-            <%if(post.image){%>
-                 <img src='<%=post.image%>' width='666' height='354.94'><br><br>
-           <% }else{%>
-                 <img src='http://www.pacinno.eu/wp-content/uploads/2014/05/placeholder-Copy.png' width='666' height='354.94'><br><br>
-            <%}%>
-           
-            <div><%-post.content.substr(0,200)%>...</div><br>
-            <a href="/posts/<%=post.slug%>" class = 'ui purple inverted button'>Read More</a><br>
-            <small class = 'ui floated right item'>Category: <a href = '/categories/<%=post.category.name%>'><%=post.category.name%></a></small>                                                                 
-            <%if(post.author){%>
-                <small class = 'ui floated right item'>Author: <a href = '/profile/<%=post.author._id%>'><%=post.author.name%></a></small>                                                                 
-            <%}%>
-            
-        </div>   
-    <%})%>
+    <div class='ui container'>
+        <% posts.forEach(function(post){%>
 
-     <div class='ui container text segment '>
+            <div class='ui container main text segment'>
+                <h3 class='header'>
+                    <%=post.title.toUpperCase()%>
+                </h3>
+                <small><%=post.date.toDateString()%></small>
+                <%if(post.image){%>
+                    <img src='<%=post.image%>' width='100%'><br><br>
+                    <% }else{%>
+                        <img src='http://www.pacinno.eu/wp-content/uploads/2014/05/placeholder-Copy.png' width='666' height='354.94'><br><br>
+                        <%}%>
+
+                            <div>
+                                <%-post.content.substr(0,100)%>...</div><br>
+                            <a href="/posts/<%=post.slug%>" class='ui purple inverted button'>Read More</a><br>
+                            <small class='ui floated right item'>Category: <a href = '/categories/<%=post.category.name%>'><%=post.category.name%></a></small>
+                            <%if(post.author){%>
+                                <small class='ui floated right item'>Author: <a href = '/profile/<%=post.author._id%>'><%=post.author.name%></a></small>
+                                <%}%>
+
+            </div>
+            <%})%>
+    </div>
+
+    <div class='ui container text segment '>
         <div class="ui pagination menu">
-        <%if(page > 1){%>
-            <a class="item" href='/posts/page/<%=parseFloat(page) - 1%>'>Prev</a>
-        <%}%>
-            
+            <%if(page > 1){%>
+                <a class="item" href='/posts/page/<%=parseFloat(page) - 1%>'>Prev</a>
+                <%}%>
 
-            <%for(var i = 1; i <= pages;i++){%>
-                <%
+
+                    <%for(var i = 1; i <= pages;i++){%>
+                        <%
                     let pageClass = '';
                     if(page == i){
                         pageClass='active'
@@ -37,15 +41,15 @@
                         pageClass = ''
                     }
                 %>
-                 <a href ='/posts/page/<%=i%>' class="item <%=pageClass%>"><%=i%></a>
-            <%}%>
-           
-           
-        <%if(page < pages){%>
-             <a class="item" href='/posts/page/<%=parseFloat(page) + 1%>'>Next</a>
-        <%}%>
+                            <a href='/posts/page/<%=i%>' class="item <%=pageClass%>">
+                                <%=i%>
+                            </a>
+                            <%}%>
+
+
+                                <%if(page < pages){%>
+                                    <a class="item" href='/posts/page/<%=parseFloat(page) + 1%>'>Next</a>
+                                    <%}%>
 
         </div>
     </div>
-
-</div>
