@@ -6,7 +6,7 @@
             <h2 class='header'><%=post.title.toUpperCase()%></h2>
             <small><%=post.date.toDateString()%></small>
             <%if(post.image){%>
-                 <img src='/uploads/<%=post.image%>' width='666' height='354.94'><br><br>
+                 <img src='<%=post.image%>' width='666' height='354.94'><br><br>
            <% }else{%>
                  <img src='http://www.pacinno.eu/wp-content/uploads/2014/05/placeholder-Copy.png' width='666' height='354.94'><br><br>
             <%}%>

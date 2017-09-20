@@ -2,6 +2,9 @@
 
 <html>
     <head>
+<meta charset = "utf-8">
+<meta http-equiv="X-UA-Compatible" content = "IE=edge">
+<meta name = "viewport" content = "width = device-width,initial-scale = 1">
         <title><%=title%></title>
         <link rel="stylesheet" href="/css/semantic.min.css">
     </head>
@@ -11,9 +14,9 @@
            
             <div class='ui container text '>
                  <div class="ui negative message">
-                <i class="close icon"></i>
-                <div class="header">
-                    <%=errors%>
+                <a class="close icon">&times;</a>
+                <div>
+                    <h4><%=errors%></h4>
                 </div>
                 
             </div>
@@ -25,9 +28,9 @@
 
             <div class='ui container text'>
                 <div class="ui green message">
-                    <i class="close icon"></i>
-                    <div class="header">
-                        <%=success%>
+                    <a class="close icon">&times;</a>
+                    <div >
+                        <h4><%=success%></h4>
                     </div>
                 </div>
             </div>

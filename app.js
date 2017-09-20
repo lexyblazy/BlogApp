@@ -13,6 +13,7 @@ const passport = require('passport');
 const passportLocal = require('passport-local');
 const session = require('express-session');
 const sanitizer = require('express-sanitizer');
+const cloudinary = require('cloudinary');
 //tell mongoose to use es6 promises
 mongoose.Promise = global.Promise;
 
@@ -25,6 +26,12 @@ const helpers = require('./helpers');
 
 //environmental variables config
 require('dotenv').config({path:'variables.env'})
+//cloudinary config
+cloudinary.config({
+    cloud_name:process.env.cloud_name,
+    api_key:process.env.api_key,
+    api_secret:process.env.api_secret
+})
 
 //public path and view engine setup
 const publicPath = path.join(__dirname , '/public');

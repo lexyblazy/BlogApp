@@ -14,7 +14,8 @@ const multerOptions = {
             next({message:'This file type is not supported'},false)
         }
     }
-}
+};
+const cloudinary = require('cloudinary');
 
 exports.home = (req,res)=>{
     res.redirect('/posts')
@@ -44,24 +45,47 @@ exports.newForm = (req,res)=>{
 //handle file uploads
 exports.upload = multer(multerOptions).single('image');
 
+
 //resize the uploaded file
+// exports.resize = async (req,res,next)=>{
+//     //if no file keep going
+//     if(!req.file){
+//         return next();
+//     }
+//     const extension = req.file.mimetype.split('/')[1];
+//     //generate a new for the file
+//     req.body.image = `${uuid.v4()}.${extension}`;
+//     //read file from buffer
+//     const photo = await jimp.read(req.file.buffer);
+//     //resize the image
+//     await photo.resize(800,jimp.AUTO);
+//     //write the file to disk
+//     await photo.write(`./public/uploads/${req.body.image}`);
+//     next();
+// }
+
+//using cloudinary api
 exports.resize = async (req,res,next)=>{
-    //if no file keep going
     if(!req.file){
         return next();
     }
     const extension = req.file.mimetype.split('/')[1];
     //generate a new for the file
-    req.body.image = `${uuid.v4()}.${extension}`;
+     const fileName = `${uuid.v4()}.${extension}`;
     //read file from buffer
     const photo = await jimp.read(req.file.buffer);
     //resize the image
     await photo.resize(800,jimp.AUTO);
     //write the file to disk
-    await photo.write(`./public/uploads/${req.body.image}`);
-    next();
+    await photo.write(`./public/uploads/${fileName}`);
+    await cloudinary.uploader.upload(`./public/uploads/${fileName}`, function(result) { 
+        req.body.image = result.url
+      },{
+        public_id: fileName
+      });
+      next();
+  
 }
-
 //validate the post form data
 exports.validatePost = (req,res,next)=>{
     req.checkBody('title','Post title cannot be empty').notEmpty();

@@ -1,6 +1,6 @@
 
 <div class="ui inverted menu">
- <a class="active item" >
+ <a class="active item" href= '/' >
     BlogApp
   </a>
   <a href = '/posts' class="item">
@@ -31,6 +31,7 @@
   </a>
   <%}%>
   <%if(user){%>
+  <a href = '/profile/<%=user._id%>' class="ui item"><%=user.name%></a>
   <a  class = 'ui item' href = '/profile/<%=user._id%>'><img src = '<%=user.gravatar%>' /></a>
   <a href = '/logout' class="ui item">
    Logout
