@@ -13,9 +13,9 @@
             <div class = 'ui container main text segment'>
             <h2 class='header'><%=post.title.toUpperCase()%></h2>
             <small><%=post.date.toDateString()%></small>
-            <img src='/uploads/<%=post.image%>' width='666' height='354.94' auto='compress' cs='tinysrgb'><br><br>
-            <div><%-post.content.substr(0,200)%>...</div><br>
-            <a href="/posts/<%=post.slug%>" class = 'ui purple inverted button'>Read More</a>
+            <img src='<%=post.image%>' width='100%'><br><br>
+            <div><%-post.content.substr(0,100)%>...</div><br>
+            <a href="/posts/<%=post.slug%>" class = 'ui orange inverted button'>Read More</a>
         </div>   
     <%})%>
 </div>
