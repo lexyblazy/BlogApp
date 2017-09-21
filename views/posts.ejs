@@ -25,9 +25,10 @@
             <%})%>
     </div>
 
+  <%if(page){%>
     <div class='ui container text segment '>
         <div class="ui pagination menu">
-            <%if(page > 1){%>
+            <%if(page && page > 1){%>
                 <a class="item" href='/posts/page/<%=parseFloat(page) - 1%>'>Prev</a>
                 <%}%>
 
@@ -52,4 +53,5 @@
                                     <%}%>
 
         </div>
+        <%}%>
     </div>

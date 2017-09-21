@@ -137,6 +137,7 @@ exports.searchPosts = async (req,res)=>{
 
 exports.userPost = async (req,res)=>{
     const user = await User.findById(req.params.id).populate('posts');
-    const posts = user.posts
-    res.render('posts',{title:`${user.name} Posts`,posts})
+    const posts = user.posts;
+    const page = null;
+    res.render('posts',{title:`${user.name} Posts`,posts,page})
 } 
