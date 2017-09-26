@@ -76,7 +76,7 @@ router.post('/register',
 //render the login form
 router.get('/login',authController.loginForm);
 //log the user in - log the current  user out first before logging in the new user, to prevent overlaps
-router.post('/login',authController.login);
+router.post('/login',authController.validateLogin,authController.login);
 //log the user out
 router.get('/logout',authController.isLoggedIn,authController.logout);
 //show a user's profile
@@ -94,7 +94,7 @@ router.post('/profile/:id',
             catchErrors(userController.updateProfile)
         )
 //password reset flow
-router.post('/account/forgot',catchErrors(authController.forgot));
+router.post('/account/forgot',authController.validateForgotPassword,catchErrors(authController.forgot));
 router.get('/account/reset/:token',catchErrors(authController.reset));
 router.post('/account/reset/:token',authController.confirmPasswords,catchErrors(authController.setPassword));
 

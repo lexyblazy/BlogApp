@@ -123,3 +123,36 @@ exports.setPassword = async (req,res)=>{
     res.redirect('/posts');
 
 }
+
+exports.validateLogin = (req,res,next)=>{
+    req.checkBody('email','Enter a valid email').isEmail();
+    req.checkBody('email','Email field cannot be empty').notEmpty();
+    req.sanitizeBody('email').normalizeEmail({
+        remove_dots:false,
+        remove_extension:false,
+        gmail_remove_subaddress:false
+    });
+    req.checkBody('password','Password field cannot be blank').notEmpty();
+    const errors = req.validationErrors();
+    if(errors){
+        req.flash('error',errors.map(err=>err.msg));
+        return res.redirect('/login');
+    }
+    next();
+}
+
+exports.validateForgotPassword = (req,res,next)=>{
+    req.checkBody('email','Enter a valid email').isEmail();
+    req.checkBody('email','Email field cannot be empty').notEmpty();
+    req.sanitizeBody('email').normalizeEmail({
+        remove_dots:false,
+        remove_extension:false,
+        gmail_remove_subaddress:false
+    });
+    const errors = req.validationErrors();
+    if(errors){
+        req.flash('error',errors.map(err=>err.msg));
+        return res.redirect('/login');
+    }
+    next();
+}
