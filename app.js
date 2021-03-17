@@ -98,5 +98,5 @@ app.use(routes);
 
 //port
 app.listen(PORT,()=>{
-    console.log('Server is up and running')
+    console.log('Server is up')
 })
