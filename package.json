@@ -4,7 +4,7 @@
   "description": "a simple blog app written in node/express and semantic ui",
   "main": "app.js",
   "engines": {
-    "node": ">=7.6.0"
+    "node": "10"
   },
   "now": {
     "dotenv": "variables.env.now"
