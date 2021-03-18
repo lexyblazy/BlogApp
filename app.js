@@ -43,13 +43,17 @@ app.set("view engine", "ejs");
 const localDB = "mongodb://127.0.0.1:27017/blog-app";
 const DB = process.env.DATABASE || localDB;
 const PORT = process.env.PORT || 7777;
-mongoose.connect(DB, { useNewUrlParser: true }, (err) => {
-  if (err) {
-    console.log("Cannot connect to database");
-  } else {
-    console.log("connection to database was successful");
+mongoose.connect(
+  DB,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  (err) => {
+    if (err) {
+      console.log("Cannot connect to database");
+    } else {
+      console.log("connection to database was successful");
+    }
   }
-});
+);
 
 //middleware
 app.use(bodyParser.urlencoded({ extended: true }));
