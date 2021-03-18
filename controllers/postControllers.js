@@ -33,12 +33,9 @@ exports.newForm = (req, res) => {
 
 //using cloudinary api
 exports.upload = async (req, res, next) => {
-  console.log("files", req.files);
-  console.log("image", req.files.image);
   if (req.files.image.name === "") {
     return next();
   }
-  console.log("file path", req.files.image.path);
   cloudinary.v2.uploader.upload(req.files.image.path, function (err, result) {
     if (err) {
       req.flash("error", "Something went Wrong");
